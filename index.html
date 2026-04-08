@@ -1,0 +1,1999 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Leege Automobil GmbH – Ihre Kfz-Werkstatt in Kirchhain. Professionelle Fahrzeugreparatur, Wartung und Inspektion mit über 20 Jahren Erfahrung.">
+  <title>Leege Automobil GmbH – Kfz-Werkstatt Kirchhain</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap');
+
+    :root {
+      --color-primary: #E85A1A;
+      --color-primary-dark: #C04410;
+      --color-bg: #0C0C0F;
+      --color-bg-2: #131318;
+      --color-bg-light: #F4F1EC;
+      --color-text: #F4F1EC;
+      --color-text-muted: #9A9490;
+      --color-steel: #1E1E26;
+      --color-border: rgba(244,241,236,0.08);
+      --font-display: 'Bebas Neue', 'Arial Narrow', sans-serif;
+      --font-body: 'Barlow', 'Arial', sans-serif;
+      --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --radius: 2px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ─── SCROLLBAR ─── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--color-bg); }
+    ::-webkit-scrollbar-thumb { background: var(--color-primary); }
+
+    /* ─── UTILITY ─── */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: 20px;
+    }
+
+    .tag::before {
+      content: '';
+      display: inline-block;
+      width: 24px;
+      height: 2px;
+      background: var(--color-primary);
+    }
+
+    /* ─── HEADER ─── */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 0;
+      transition: var(--transition);
+    }
+
+    header.scrolled {
+      background: rgba(12, 12, 15, 0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+      padding: 0 32px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+      text-decoration: none;
+    }
+
+    .logo-main {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      letter-spacing: 0.08em;
+      color: var(--color-text);
+    }
+
+    .logo-main span {
+      color: var(--color-primary);
+    }
+
+    .logo-sub {
+      font-size: 0.6rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      font-weight: 500;
+      margin-top: 1px;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+    }
+
+    nav a {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      text-decoration: none;
+      transition: color var(--transition);
+      position: relative;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--color-primary);
+      transition: width var(--transition);
+    }
+
+    nav a:hover { color: var(--color-text); }
+    nav a:hover::after { width: 100%; }
+
+    .nav-cta {
+      background: var(--color-primary) !important;
+      color: #fff !important;
+      padding: 10px 22px;
+      font-size: 0.72rem !important;
+      letter-spacing: 0.14em !important;
+      text-decoration: none;
+      transition: background var(--transition) !important;
+    }
+
+    .nav-cta:hover { background: var(--color-primary-dark) !important; }
+    .nav-cta::after { display: none !important; }
+
+    .burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+
+    .burger span {
+      display: block;
+      width: 26px;
+      height: 2px;
+      background: var(--color-text);
+      transition: var(--transition);
+    }
+
+    /* ─── HERO ─── */
+    #hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 70% 50%, rgba(232, 90, 26, 0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 80% at 20% 80%, rgba(232, 90, 26, 0.06) 0%, transparent 50%),
+        linear-gradient(160deg, #0C0C0F 0%, #131318 40%, #0d0d12 100%);
+    }
+
+    /* Dekorative Grid-Linien */
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(244,241,236,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(244,241,236,0.025) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    /* Mechanische Deko-Elemente */
+    .hero-deco {
+      position: absolute;
+      right: -60px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 640px;
+      height: 640px;
+      border: 1px solid rgba(232, 90, 26, 0.08);
+      border-radius: 50%;
+    }
+
+    .hero-deco::before {
+      content: '';
+      position: absolute;
+      inset: 40px;
+      border: 1px solid rgba(232, 90, 26, 0.06);
+      border-radius: 50%;
+    }
+
+    .hero-deco::after {
+      content: '';
+      position: absolute;
+      inset: 100px;
+      border: 1px solid rgba(232, 90, 26, 0.05);
+      border-radius: 50%;
+    }
+
+    .hero-deco-line {
+      position: absolute;
+      right: 180px;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, rgba(232, 90, 26, 0.15) 30%, rgba(232, 90, 26, 0.15) 70%, transparent);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 780px;
+      padding: 140px 32px 80px;
+      margin-left: max(32px, calc((100vw - 1200px) / 2));
+    }
+
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.2s forwards;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(232, 90, 26, 0.15);
+      border: 1px solid rgba(232, 90, 26, 0.3);
+      color: var(--color-primary);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+    }
+
+    .hero-badge-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--color-primary);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    .hero-location {
+      font-size: 0.72rem;
+      color: var(--color-text-muted);
+      letter-spacing: 0.1em;
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(4rem, 10vw, 8rem);
+      line-height: 0.92;
+      letter-spacing: 0.03em;
+      color: var(--color-text);
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.35s forwards;
+    }
+
+    h1 .accent {
+      color: var(--color-primary);
+      display: block;
+    }
+
+    h1 .stroke {
+      -webkit-text-stroke: 1px rgba(244,241,236,0.3);
+      color: transparent;
+    }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      font-weight: 300;
+      color: rgba(244,241,236,0.65);
+      max-width: 480px;
+      line-height: 1.7;
+      margin-bottom: 44px;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.5s forwards;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.65s forwards;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--color-primary);
+      color: #fff;
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 16px 32px;
+      transition: all var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0.1);
+      transform: translateX(-100%);
+      transition: transform var(--transition);
+    }
+
+    .btn-primary:hover { background: var(--color-primary-dark); transform: translateY(-2px); }
+    .btn-primary:hover::before { transform: translateX(0); }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: transparent;
+      color: var(--color-text-muted);
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(244,241,236,0.15);
+      transition: all var(--transition);
+    }
+
+    .btn-ghost:hover { color: var(--color-text); border-color: var(--color-text); }
+
+    .hero-stats {
+      position: absolute;
+      bottom: 48px;
+      left: max(32px, calc((100vw - 1200px) / 2));
+      right: max(32px, calc((100vw - 1200px) / 2));
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.8s forwards;
+    }
+
+    .hero-stat-group {
+      display: flex;
+      gap: 48px;
+    }
+
+    .hero-stat {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hero-stat-num {
+      font-family: var(--font-display);
+      font-size: 2.4rem;
+      letter-spacing: 0.04em;
+      line-height: 1;
+      color: var(--color-text);
+    }
+
+    .hero-stat-num span {
+      color: var(--color-primary);
+    }
+
+    .hero-stat-label {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-top: 4px;
+    }
+
+    .hero-scroll {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      text-decoration: none;
+    }
+
+    .scroll-icon {
+      width: 28px;
+      height: 44px;
+      border: 1px solid rgba(244,241,236,0.2);
+      border-radius: 14px;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .scroll-icon::after {
+      content: '';
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 3px;
+      height: 8px;
+      background: var(--color-primary);
+      border-radius: 2px;
+      animation: scrollDown 1.8s infinite;
+    }
+
+    @keyframes scrollDown {
+      0% { transform: translateX(-50%) translateY(0); opacity: 1; }
+      100% { transform: translateX(-50%) translateY(14px); opacity: 0; }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── SERVICES ─── */
+    #leistungen {
+      background: var(--color-bg-2);
+      padding: 120px 0;
+      position: relative;
+    }
+
+    #leistungen::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--color-primary) 30%, var(--color-primary) 70%, transparent);
+      opacity: 0.3;
+    }
+
+    .section-header {
+      margin-bottom: 64px;
+    }
+
+    .section-header h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      letter-spacing: 0.04em;
+      line-height: 0.95;
+      color: var(--color-text);
+    }
+
+    .section-header h2 em {
+      font-style: normal;
+      color: var(--color-primary);
+    }
+
+    .section-header p {
+      font-size: 1rem;
+      font-weight: 300;
+      color: rgba(244,241,236,0.6);
+      max-width: 480px;
+      margin-top: 20px;
+      line-height: 1.8;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--color-border);
+    }
+
+    .service-card {
+      background: var(--color-bg-2);
+      padding: 48px 40px;
+      position: relative;
+      transition: background var(--transition);
+      cursor: default;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--color-primary);
+      transform: scaleY(0);
+      transform-origin: bottom;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .service-card:hover { background: rgba(232, 90, 26, 0.04); }
+    .service-card:hover::before { transform: scaleY(1); }
+
+    .service-icon {
+      font-size: 2rem;
+      margin-bottom: 24px;
+      display: block;
+      line-height: 1;
+    }
+
+    .service-num {
+      position: absolute;
+      top: 32px;
+      right: 36px;
+      font-family: var(--font-display);
+      font-size: 4rem;
+      letter-spacing: 0.04em;
+      color: rgba(244,241,236,0.03);
+      line-height: 1;
+    }
+
+    .service-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      letter-spacing: 0.06em;
+      color: var(--color-text);
+      margin-bottom: 12px;
+    }
+
+    .service-card p {
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: rgba(244,241,236,0.55);
+      line-height: 1.75;
+    }
+
+    .service-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 24px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      text-decoration: none;
+      opacity: 0;
+      transform: translateX(-8px);
+      transition: all var(--transition);
+    }
+
+    .service-card:hover .service-link {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* ─── ABOUT ─── */
+    #ueber-uns {
+      padding: 120px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .about-visual {
+      position: relative;
+    }
+
+    .about-main-block {
+      background: var(--color-steel);
+      aspect-ratio: 4/5;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-main-block::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 80% at 50% 30%, rgba(232, 90, 26, 0.15) 0%, transparent 60%),
+        linear-gradient(180deg, var(--color-steel) 0%, #0d0d12 100%);
+    }
+
+    /* Werkzeug-Illustration via CSS */
+    .about-wrench {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 120px;
+      height: 120px;
+      opacity: 0.12;
+    }
+
+    .wrench-svg {
+      font-size: 8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
+
+    .about-badge-overlay {
+      position: absolute;
+      bottom: 32px;
+      left: 32px;
+      right: 32px;
+      background: rgba(232, 90, 26, 0.9);
+      padding: 24px 28px;
+    }
+
+    .about-badge-overlay strong {
+      font-family: var(--font-display);
+      font-size: 2.4rem;
+      letter-spacing: 0.04em;
+      display: block;
+      line-height: 1;
+      color: #fff;
+    }
+
+    .about-badge-overlay span {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.8);
+      margin-top: 6px;
+      display: block;
+    }
+
+    .about-small-block {
+      position: absolute;
+      top: -24px;
+      right: -24px;
+      width: 160px;
+      height: 120px;
+      background: var(--color-bg-2);
+      border: 1px solid var(--color-border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 16px;
+    }
+
+    .about-small-block strong {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      letter-spacing: 0.04em;
+      color: var(--color-primary);
+      line-height: 1;
+    }
+
+    .about-small-block span {
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-top: 6px;
+    }
+
+    .about-content h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      letter-spacing: 0.04em;
+      line-height: 0.95;
+      color: var(--color-text);
+      margin-bottom: 28px;
+    }
+
+    .about-content h2 em {
+      font-style: normal;
+      color: var(--color-primary);
+    }
+
+    .about-content p {
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: rgba(244,241,236,0.6);
+      line-height: 1.85;
+      margin-bottom: 20px;
+    }
+
+    .about-values {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 40px;
+    }
+
+    .about-value {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .value-icon {
+      width: 32px;
+      height: 32px;
+      background: rgba(232, 90, 26, 0.1);
+      border: 1px solid rgba(232, 90, 26, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    .value-text strong {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--color-text);
+      margin-bottom: 2px;
+    }
+
+    .value-text span {
+      font-size: 0.78rem;
+      color: var(--color-text-muted);
+      font-weight: 300;
+    }
+
+    /* ─── TRUST BANNER ─── */
+    #vertrauen {
+      background: var(--color-primary);
+      padding: 80px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #vertrauen::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 80% at 80% 50%, rgba(255,255,255,0.05) 0%, transparent 60%);
+    }
+
+    .trust-layout {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 48px;
+    }
+
+    .trust-heading {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      letter-spacing: 0.04em;
+      line-height: 0.95;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .trust-items {
+      display: flex;
+      gap: 0;
+      flex: 1;
+      justify-content: flex-end;
+    }
+
+    .trust-item {
+      padding: 0 40px;
+      border-left: 1px solid rgba(255,255,255,0.2);
+      text-align: center;
+    }
+
+    .trust-item:last-child {
+      padding-right: 0;
+    }
+
+    .trust-num {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      letter-spacing: 0.04em;
+      color: #fff;
+      line-height: 1;
+      display: block;
+    }
+
+    .trust-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+      margin-top: 6px;
+      display: block;
+    }
+
+    /* ─── PROZESS ─── */
+    #prozess {
+      padding: 120px 0;
+      background: var(--color-bg);
+      position: relative;
+    }
+
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      margin-top: 64px;
+      position: relative;
+    }
+
+    .process-steps::before {
+      content: '';
+      position: absolute;
+      top: 32px;
+      left: 10%;
+      right: 10%;
+      height: 1px;
+      background: linear-gradient(to right, var(--color-primary), transparent);
+      z-index: 0;
+    }
+
+    .process-step {
+      padding: 0 32px 0 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .step-num {
+      width: 64px;
+      height: 64px;
+      background: var(--color-bg-2);
+      border: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      letter-spacing: 0.06em;
+      color: var(--color-primary);
+      margin-bottom: 28px;
+      position: relative;
+    }
+
+    .step-num::before {
+      content: '';
+      position: absolute;
+      inset: 6px;
+      border: 1px solid rgba(232, 90, 26, 0.2);
+    }
+
+    .process-step:first-child .step-num {
+      background: var(--color-primary);
+      color: #fff;
+    }
+
+    .process-step:first-child .step-num::before {
+      border-color: rgba(255,255,255,0.2);
+    }
+
+    .process-step h3 {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      letter-spacing: 0.06em;
+      color: var(--color-text);
+      margin-bottom: 10px;
+    }
+
+    .process-step p {
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: rgba(244,241,236,0.5);
+      line-height: 1.7;
+    }
+
+    /* ─── CONTACT ─── */
+    #kontakt {
+      padding: 120px 0;
+      background: var(--color-bg-2);
+      position: relative;
+    }
+
+    #kontakt::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--color-primary) 30%, var(--color-primary) 70%, transparent);
+      opacity: 0.3;
+    }
+
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .contact-info h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      letter-spacing: 0.04em;
+      line-height: 0.95;
+      color: var(--color-text);
+      margin-bottom: 24px;
+    }
+
+    .contact-info h2 em {
+      font-style: normal;
+      color: var(--color-primary);
+    }
+
+    .contact-info p {
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: rgba(244,241,236,0.55);
+      line-height: 1.8;
+      margin-bottom: 40px;
+    }
+
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .contact-item-icon {
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+      color: var(--color-primary);
+    }
+
+    .contact-item-text strong {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: 3px;
+    }
+
+    .contact-item-text a,
+    .contact-item-text span {
+      font-size: 0.95rem;
+      color: var(--color-text);
+      text-decoration: none;
+      font-weight: 400;
+      transition: color var(--transition);
+    }
+
+    .contact-item-text a:hover { color: var(--color-primary); }
+
+    .opening-hours {
+      margin-top: 36px;
+      padding: 28px;
+      border: 1px solid var(--color-border);
+      background: rgba(244,241,236,0.02);
+    }
+
+    .opening-hours h4 {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      letter-spacing: 0.08em;
+      color: var(--color-text);
+      margin-bottom: 16px;
+    }
+
+    .hours-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--color-border);
+      font-size: 0.85rem;
+    }
+
+    .hours-row:last-child { border-bottom: none; }
+
+    .hours-row span:first-child { color: rgba(244,241,236,0.5); font-weight: 300; }
+    .hours-row span:last-child { color: var(--color-text); font-weight: 500; }
+
+    /* ─── FORM ─── */
+    .contact-form-wrap {
+      position: relative;
+    }
+
+    .form-card {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      padding: 52px 44px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .form-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(to right, var(--color-primary), var(--color-primary-dark));
+    }
+
+    .form-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      letter-spacing: 0.06em;
+      color: var(--color-text);
+      margin-bottom: 8px;
+    }
+
+    .form-card > p {
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      margin-bottom: 32px;
+      font-weight: 300;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .form-group.full { grid-column: 1 / -1; }
+
+    .form-group label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      background: rgba(244,241,236,0.04);
+      border: 1px solid var(--color-border);
+      color: var(--color-text);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      font-weight: 300;
+      padding: 14px 18px;
+      outline: none;
+      transition: border-color var(--transition), background var(--transition);
+      border-radius: var(--radius);
+      width: 100%;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: rgba(244,241,236,0.2);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: rgba(232, 90, 26, 0.5);
+      background: rgba(232, 90, 26, 0.04);
+    }
+
+    .form-group textarea {
+      resize: none;
+      height: 140px;
+    }
+
+    .form-submit {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 8px;
+    }
+
+    .btn-submit {
+      flex: 1;
+      background: var(--color-primary);
+      color: #fff;
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      border: none;
+      padding: 18px 32px;
+      cursor: pointer;
+      transition: all var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-submit:hover { background: var(--color-primary-dark); transform: translateY(-2px); }
+    .btn-submit:active { transform: translateY(0); }
+
+    .form-note {
+      font-size: 0.72rem;
+      color: var(--color-text-muted);
+      font-weight: 300;
+    }
+
+    .form-success {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 40px;
+      min-height: 300px;
+    }
+
+    .form-success.show { display: flex; }
+
+    .success-icon {
+      width: 64px;
+      height: 64px;
+      background: rgba(232, 90, 26, 0.1);
+      border: 2px solid var(--color-primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      margin-bottom: 24px;
+      animation: successPop 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
+    @keyframes successPop {
+      from { transform: scale(0); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .form-success h4 {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      letter-spacing: 0.06em;
+      color: var(--color-text);
+      margin-bottom: 12px;
+    }
+
+    .form-success p {
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: #080810;
+      padding: 64px 0 32px;
+      border-top: 1px solid var(--color-border);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+
+    .footer-brand .logo {
+      margin-bottom: 16px;
+    }
+
+    .footer-brand p {
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: rgba(244,241,236,0.4);
+      line-height: 1.7;
+      max-width: 280px;
+    }
+
+    .footer-col h4 {
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+      color: var(--color-text);
+      margin-bottom: 20px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-col ul li a {
+      font-size: 0.82rem;
+      font-weight: 300;
+      color: rgba(244,241,236,0.4);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+
+    .footer-col ul li a:hover { color: var(--color-primary); }
+
+    .footer-contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-contact-list a,
+    .footer-contact-list span {
+      font-size: 0.82rem;
+      font-weight: 300;
+      color: rgba(244,241,236,0.4);
+      text-decoration: none;
+      display: block;
+      transition: color var(--transition);
+      line-height: 1.5;
+    }
+
+    .footer-contact-list a:hover { color: var(--color-primary); }
+
+    .footer-bottom {
+      border-top: 1px solid var(--color-border);
+      padding-top: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .footer-bottom p {
+      font-size: 0.75rem;
+      color: rgba(244,241,236,0.3);
+      font-weight: 300;
+    }
+
+    .footer-legal {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-legal a {
+      font-size: 0.75rem;
+      color: rgba(244,241,236,0.3);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+
+    .footer-legal a:hover { color: var(--color-primary); }
+
+    /* ─── REVEAL ANIMATION ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+    .reveal-delay-5 { transition-delay: 0.5s; }
+    .reveal-delay-6 { transition-delay: 0.6s; }
+
+    /* ─── MOBILE NAV ─── */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      inset: 72px 0 0;
+      background: rgba(8, 8, 16, 0.98);
+      z-index: 99;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+    }
+
+    .mobile-nav.open { display: flex; }
+
+    .mobile-nav a {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      letter-spacing: 0.1em;
+      color: rgba(244,241,236,0.6);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+
+    .mobile-nav a:hover { color: var(--color-primary); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1024px) {
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .about-layout {
+        grid-template-columns: 1fr;
+        gap: 60px;
+      }
+
+      .about-visual {
+        max-width: 480px;
+      }
+
+      .trust-layout {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .trust-items {
+        justify-content: center;
+      }
+
+      .process-steps {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px;
+      }
+
+      .process-steps::before { display: none; }
+
+      .contact-layout {
+        grid-template-columns: 1fr;
+        gap: 60px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      nav { display: none; }
+      .burger { display: flex; }
+
+      .hero-content {
+        padding: 120px 24px 80px;
+        margin-left: 0;
+      }
+
+      .hero-stats {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 24px;
+        left: 24px;
+        right: 24px;
+      }
+
+      .hero-stat-group {
+        gap: 32px;
+      }
+
+      .hero-scroll { display: none; }
+
+      .services-grid { grid-template-columns: 1fr; }
+
+      .form-row { grid-template-columns: 1fr; }
+
+      .trust-items {
+        flex-direction: column;
+        gap: 24px;
+      }
+
+      .trust-item {
+        border-left: none;
+        border-top: 1px solid rgba(255,255,255,0.2);
+        padding: 24px 0 0;
+      }
+
+      .trust-item:first-child { border-top: none; padding-top: 0; }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .form-card {
+        padding: 36px 24px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-actions {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .btn-primary { width: 100%; justify-content: center; }
+
+      .process-steps { grid-template-columns: 1fr; }
+
+      .about-values { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header id="main-header">
+    <div class="header-inner">
+      <a href="#hero" class="logo">
+        <span class="logo-main">LEEGE <span>AUTO</span></span>
+        <span class="logo-sub">Automobil GmbH · Kirchhain</span>
+      </a>
+      <nav>
+        <a href="#leistungen">Leistungen</a>
+        <a href="#ueber-uns">Über uns</a>
+        <a href="#prozess">Ablauf</a>
+        <a href="#kontakt" class="nav-cta">Termin anfragen</a>
+      </nav>
+      <button class="burger" id="burger-btn" aria-label="Menü öffnen">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- MOBILE NAV -->
+  <nav class="mobile-nav" id="mobile-nav">
+    <a href="#leistungen" class="mobile-link">Leistungen</a>
+    <a href="#ueber-uns" class="mobile-link">Über uns</a>
+    <a href="#prozess" class="mobile-link">Ablauf</a>
+    <a href="#kontakt" class="mobile-link">Kontakt</a>
+  </nav>
+
+  <main>
+
+    <!-- HERO -->
+    <section id="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-grid"></div>
+      <div class="hero-deco"></div>
+      <div class="hero-deco-line"></div>
+
+      <div class="hero-content">
+        <div class="hero-eyebrow">
+          <div class="hero-badge">
+            <span class="hero-badge-dot"></span>
+            Geöffnet · Kirchhain
+          </div>
+          <span class="hero-location">Frankfurter Str. 16, 35274</span>
+        </div>
+
+        <h1>
+          PRÄZISION<br>
+          <span class="accent">AM</span>
+          <span class="stroke">FAHRZEUG</span>
+        </h1>
+
+        <p class="hero-sub">
+          Ihre Kfz-Werkstatt in Kirchhain — für Wartung, Inspektion und Reparatur,
+          die hält was sie verspricht. Transparent, zuverlässig, seit Jahren im Herzen der Region.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#kontakt" class="btn-primary">
+            ⚙ Termin vereinbaren
+          </a>
+          <a href="#leistungen" class="btn-ghost">
+            Alle Leistungen →
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-stats">
+        <div class="hero-stat-group">
+          <div class="hero-stat">
+            <span class="hero-stat-num">20<span>+</span></span>
+            <span class="hero-stat-label">Jahre Erfahrung</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-num">500<span>+</span></span>
+            <span class="hero-stat-label">Zufriedene Kunden</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-num">1<span>×</span></span>
+            <span class="hero-stat-label">Werkstatt, die passt</span>
+          </div>
+        </div>
+        <a href="#leistungen" class="hero-scroll">
+          <span class="scroll-icon"></span>
+          Entdecken
+        </a>
+      </div>
+    </section>
+
+    <!-- LEISTUNGEN -->
+    <section id="leistungen">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="tag">Leistungen</div>
+          <h2>WAS WIR<br><em>FÜR SIE</em><br>TUN</h2>
+          <p>Von der Routineinspektion bis zur komplexen Motordiagnose — wir betreuen Ihr Fahrzeug kompetent und ehrlich.</p>
+        </div>
+
+        <div class="services-grid">
+          <div class="service-card reveal">
+            <span class="service-num">01</span>
+            <span class="service-icon">🔧</span>
+            <h3>INSPEKTION & WARTUNG</h3>
+            <p>Regelmäßige Inspektionen nach Herstellervorgaben sichern die Zuverlässigkeit und den Werterhalt Ihres Fahrzeugs — lückenlos dokumentiert.</p>
+            <a href="#kontakt" class="service-link">Termin buchen →</a>
+          </div>
+
+          <div class="service-card reveal reveal-delay-1">
+            <span class="service-num">02</span>
+            <span class="service-icon">🛞</span>
+            <h3>REIFEN & RÄDER</h3>
+            <p>Reifenwechsel, Einlagerung, Auswuchten und Montage aller gängigen Reifengrößen. Frühjahrs- und Herbsttermine auf Wunsch fest gebucht.</p>
+            <a href="#kontakt" class="service-link">Termin buchen →</a>
+          </div>
+
+          <div class="service-card reveal reveal-delay-2">
+            <span class="service-num">03</span>
+            <span class="service-icon">🔍</span>
+            <h3>FEHLERDIAGNOSE</h3>
+            <p>Modernste Diagnosetechnik für alle Fahrzeugsysteme. Wir lesen aus, analysieren und erklären — bevor wir reparieren.</p>
+            <a href="#kontakt" class="service-link">Termin buchen →</a>
+          </div>
+
+          <div class="service-card reveal reveal-delay-3">
+            <span class="service-num">04</span>
+            <span class="service-icon">🛠</span>
+            <h3>MOTOR & GETRIEBE</h3>
+            <p>Instandsetzung und Überholung von Motor und Getriebe. Wir arbeiten mit Originalersatzteilen und Qualitätsprodukten namhafter Hersteller.</p>
+            <a href="#kontakt" class="service-link">Termin buchen →</a>
+          </div>
+
+          <div class="service-card reveal reveal-delay-4">
+            <span class="service-num">05</span>
+            <span class="service-icon">⚡</span>
+            <h3>BREMSEN & FAHRWERK</h3>
+            <p>Sicherheit beginnt mit funktionierenden Bremsen. Prüfung, Erneuerung und Einstellung von Bremssystem und Fahrwerk auf Präzisionsniveau.</p>
+            <a href="#kontakt" class="service-link">Termin buchen →</a>
+          </div>
+
+          <div class="service-card reveal reveal-delay-5">
+            <span class="service-num">06</span>
+            <span class="service-icon">📋</span>
+            <h3>HU/AU & TÜV-VORBEREITUNG</h3>
+            <p>Wir bereiten Ihr Fahrzeug optimal auf die Hauptuntersuchung vor und beheben alle Mängel vor dem Prüftermin — zuverlässig und termingerecht.</p>
+            <a href="#kontakt" class="service-link">Termin buchen →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ÜBER UNS -->
+    <section id="ueber-uns">
+      <div class="container">
+        <div class="about-layout">
+          <div class="about-visual reveal">
+            <div class="about-main-block">
+              <div class="about-wrench">
+                <div class="wrench-svg" style="font-size:9rem; opacity:0.15; color:var(--color-primary);">⚙</div>
+              </div>
+              <div style="
+                position:absolute;
+                inset:0;
+                background: linear-gradient(135deg, rgba(232,90,26,0.05) 0%, transparent 50%, rgba(232,90,26,0.08) 100%);
+              "></div>
+              <!-- Dekorative Linien -->
+              <div style="
+                position:absolute;
+                top:24px; left:24px; right:24px; bottom:24px;
+                border: 1px solid rgba(244,241,236,0.05);
+              "></div>
+              <div class="about-badge-overlay">
+                <strong>Leege Automobil</strong>
+                <span>Ihre Werkstatt in Kirchhain seit über 20 Jahren</span>
+              </div>
+            </div>
+            <div class="about-small-block">
+              <strong>4.8</strong>
+              <span>⭐⭐⭐⭐⭐<br>Kundenbewertung</span>
+            </div>
+          </div>
+
+          <div class="about-content reveal reveal-delay-2">
+            <div class="tag">Über uns</div>
+            <h2>HANDWERK<br>MIT <em>ANSPRUCH</em></h2>
+            <p>
+              Die Leege Automobil GmbH steht für das, was in der Autowerkstatt zählt:
+              Ehrlichkeit, Kompetenz und das Gefühl, gut aufgehoben zu sein. Seit über
+              zwei Jahrzehnten betreuen wir Privatfahrzeuge und Flotten in Kirchhain
+              und dem gesamten Landkreis Marburg-Biedenkopf.
+            </p>
+            <p>
+              Unser Team aus erfahrenen Kfz-Meistern und Technikern kennt Ihr Fahrzeug
+              genau — und erklärt Ihnen verständlich, was zu tun ist. Keine versteckten
+              Kosten, keine unnötigen Reparaturen.
+            </p>
+
+            <div class="about-values">
+              <div class="about-value">
+                <div class="value-icon">✓</div>
+                <div class="value-text">
+                  <strong>Transparente Preise</strong>
+                  <span>Kostenvoranschlag vor jeder Arbeit</span>
+                </div>
+              </div>
+              <div class="about-value">
+                <div class="value-icon">⚡</div>
+                <div class="value-text">
+                  <strong>Kurze Wartezeiten</strong>
+                  <span>Termine nach Absprache</span>
+                </div>
+              </div>
+              <div class="about-value">
+                <div class="value-icon">🔒</div>
+                <div class="value-text">
+                  <strong>Qualitätsgarantie</strong>
+                  <span>Originalteile & geprüfte Partner</span>
+                </div>
+              </div>
+              <div class="about-value">
+                <div class="value-icon">📍</div>
+                <div class="value-text">
+                  <strong>Regional verwurzelt</strong>
+                  <span>Kirchhain & Umgebung seit 20+ Jahren</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRUST BANNER -->
+    <section id="vertrauen">
+      <div class="container">
+        <div class="trust-layout">
+          <h2 class="trust-heading reveal">ZAHLEN<br>DIE<br>ÜBERZEUGEN</h2>
+          <div class="trust-items">
+            <div class="trust-item reveal reveal-delay-1">
+              <span class="trust-num">20+</span>
+              <span class="trust-label">Jahre in Kirchhain</span>
+            </div>
+            <div class="trust-item reveal reveal-delay-2">
+              <span class="trust-num">500+</span>
+              <span class="trust-label">Stammkunden</span>
+            </div>
+            <div class="trust-item reveal reveal-delay-3">
+              <span class="trust-num">4.8★</span>
+              <span class="trust-label">Ø Bewertung</span>
+            </div>
+            <div class="trust-item reveal reveal-delay-4">
+              <span class="trust-num">100%</span>
+              <span class="trust-label">Preistransparenz</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROZESS -->
+    <section id="prozess">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="tag">So läuft es ab</div>
+          <h2>IHR WEG ZU<br><em>UNS</em></h2>
+          <p>Einfach, klar und ohne Überraschungen — so erleben unsere Kunden ihre Werkstatt.</p>
+        </div>
+
+        <div class="process-steps">
+          <div class="process-step reveal reveal-delay-1">
+            <div class="step-num">01</div>
+            <h3>KONTAKT</h3>
+            <p>Rufen Sie uns an oder schreiben Sie uns. Wir vereinbaren gemeinsam einen passenden Termin — flexibel und unkompliziert.</p>
+          </div>
+          <div class="process-step reveal reveal-delay-2">
+            <div class="step-num">02</div>
+            <h3>DIAGNOSE</h3>
+            <p>Wir nehmen Ihr Fahrzeug gründlich unter die Lupe und erstellen eine ehrliche Einschätzung des Reparaturbedarfs.</p>
+          </div>
+          <div class="process-step reveal reveal-delay-3">
+            <div class="step-num">03</div>
+            <h3>KOSTENVORANSCHLAG</h3>
+            <p>Bevor wir loslegen, erhalten Sie einen transparenten Kostenvoranschlag. Keine versteckten Zusatzkosten.</p>
+          </div>
+          <div class="process-step reveal reveal-delay-4">
+            <div class="step-num">04</div>
+            <h3>FERTIG & ÜBERGABE</h3>
+            <p>Ihr Fahrzeug ist einsatzbereit. Wir erklären Ihnen, was gemacht wurde — und wann der nächste Service sinnvoll ist.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- KONTAKT -->
+    <section id="kontakt">
+      <div class="container">
+        <div class="contact-layout">
+          <div class="contact-info reveal">
+            <div class="tag">Kontakt</div>
+            <h2>JETZT<br><em>TERMIN</em><br>SICHERN</h2>
+            <p>Wir sind für Sie da — ob für eine Frage, einen Kostenvoranschlag oder einen Reparaturtermin. Sprechen Sie uns einfach an.</p>
+
+            <div class="contact-details">
+              <div class="contact-item">
+                <div class="contact-item-icon">📞</div>
+                <div class="contact-item-text">
+                  <strong>Telefon</strong>
+                  <a href="tel:+491726641680">+49 172 664 1680</a>
+                </div>
+              </div>
+              <div class="contact-item">
+                <div class="contact-item-icon">✉</div>
+                <div class="contact-item-text">
+                  <strong>E-Mail</strong>
+                  <a href="mailto:j.leege@autohaus-leege.de">j.leege@autohaus-leege.de</a>
+                </div>
+              </div>
+              <div class="contact-item">
+                <div class="contact-item-icon">📍</div>
+                <div class="contact-item-text">
+                  <strong>Adresse</strong>
+                  <span>Frankfurter Str. 16<br>35274 Kirchhain</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="opening-hours">
+              <h4>ÖFFNUNGSZEITEN</h4>
+              <div class="hours-row">
+                <span>Montag – Freitag</span>
+                <span>07:30 – 17:30 Uhr</span>
+              </div>
+              <div class="hours-row">
+                <span>Samstag</span>
+                <span>Nach Vereinbarung</span>
+              </div>
+              <div class="hours-row">
+                <span>Sonntag</span>
+                <span>Geschlossen</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-form-wrap reveal reveal-delay-2">
+            <div class="form-card">
+              <h3>NACHRICHT SENDEN</h3>
+              <p>Wir antworten in der Regel innerhalb von 24 Stunden.</p>
+
+              <form id="contact-form">
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="name">Name *</label>
+                    <input type="text" id="name" name="name" placeholder="Max Mustermann" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="email">E-Mail *</label>
+                    <input type="email" id="email" name="email" placeholder="max@email.de" required>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="phone">Telefon (optional)</label>
+                  <input type="tel" id="phone" name="phone" placeholder="+49 172 000 0000">
+                </div>
+
+                <div class="form-group full">
+                  <label for="message">Ihr Anliegen *</label>
+                  <textarea id="message" name="message" placeholder="Beschreiben Sie kurz, womit wir Ihnen helfen können..." required></textarea>
+                </div>
+
+                <div class="form-submit">
+                  <button type="submit" class="btn-submit">Nachricht absenden →</button>
+                </div>
+                <p class="form-note" style="margin-top:12px;">* Pflichtfelder. Ihre Daten werden vertraulich behandelt.</p>
+              </form>
+
+              <div class="form-success" id="form-success">
+                <div class="success-icon">✓</div>
+                <h4>NACHRICHT ERHALTEN</h4>
+                <p>Vielen Dank! Wir haben Ihre Anfrage erhalten und melden uns schnellstmöglich bei Ihnen zurück.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#hero" class="logo">
+            <span class="logo-main">LEEGE <span>AUTO</span></span>
+            <span class="logo-sub">Automobil GmbH · Kirchhain</span>
+          </a>
+          <p>Ihre zuverlässige Kfz-Werkstatt in Kirchhain. Seit über 20 Jahren für Qualität, Transparenz und faire Preise.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>LEISTUNGEN</h4>
+          <ul>
+            <li><a href="#leistungen">Inspektion & Wartung</a></li>
+            <li><a href="#leistungen">Reifen & Räder</a></li>
+            <li><a href="#leistungen">Fehlerdiagnose</a></li>
+            <li><a href="#leistungen">Motor & Getriebe</a></li>
+            <li><a href="#leistungen">Bremsen & Fahrwerk</a></li>
+            <li><a href="#leistungen">HU/AU-Vorbereitung</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>NAVIGATION</h4>
+          <ul>
+            <li><a href="#hero">Startseite</a></li>
+            <li><a href="#leistungen">Leistungen</a></li>
+            <li><a href="#ueber-uns">Über uns</a></li>
+            <li><a href="#prozess">Ablauf</a></li>
+            <li><a href="#kontakt">Kontakt</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>KONTAKT</h4>
+          <div class="footer-contact-list">
+            <a href="tel:+491726641680">+49 172 664 1680</a>
+            <a href="mailto:j.leege@autohaus-leege.de">j.leege@autohaus-leege.de</a>
+            <span>Frankfurter Str. 16<br>35274 Kirchhain</span>
+            <span style="margin-top:4px;">Mo–Fr: 07:30–17:30 Uhr</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2024 Leege Automobil GmbH · Alle Rechte vorbehalten</p>
+        <div class="footer-legal">
+          <a href="#">Impressum</a>
+          <a href="#">Datenschutz</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ── Header scroll effect
+    const header = document.getElementById('main-header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 32);
+    }, { passive: true });
+
+    // ── Burger menu
+    const burgerBtn = document.getElementById('burger-btn');
+    const mobileNav = document.getElementById('mobile-nav');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+
+    burgerBtn.addEventListener('click', () => {
+      const open = mobileNav.classList.toggle('open');
+      burgerBtn.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
+    });
+
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileNav.classList.remove('open');
+      });
+    });
+
+    // ── Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    reveals.forEach(el => revealObserver.observe(el));
+
+    // ── Contact form
+    const form = document.getElementById('contact-form');
+    const formSuccess = document.getElementById('form-success');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const btn = form.querySelector('.btn-submit');
+      btn.textContent = 'Wird gesendet...';
+      btn.disabled = true;
+
+      setTimeout(() => {
+        form.style.display = 'none';
+        formSuccess.classList.add('show');
+      }, 900);
+    });
+
+    // ── Smooth anchor scroll for all anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', (e) => {
+        const target = document.querySelector(anchor.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          const offset = 80;
+          const top = target.getBoundingClientRect().top + window.scrollY - offset;
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
